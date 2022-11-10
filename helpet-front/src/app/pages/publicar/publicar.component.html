@@ -2,11 +2,16 @@
   <h1 class="text-center text-white mt-4">Crea una Publicación</h1>
 
   <form>
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width text-white" appearance="fill">
       <mat-label>Descipción</mat-label>
       <textarea matInput placeholder="Descripción de la situación de la mascota..."></textarea>
     </mat-form-field>
 
-    <input type="file">
+    <label for="imagen" class="text-white" style="cursor: pointer;"><mat-icon><span class="material-symbols-outlined">
+      add_photo_alternate
+      </span></mat-icon></label><br>
+    <input type="file" accept=".png, .jpg, .jepg" id="imagen" class="d-none"><br>
+    
+    <button type="submit" class="btn btn-outline-success float-end mr-4 mt-4">Publicar</button>
   </form>
 </div>
