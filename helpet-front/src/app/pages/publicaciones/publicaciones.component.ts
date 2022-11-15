@@ -5,27 +5,21 @@ import { PublicacionesService } from 'src/app/services/publicaciones.service';
 @Component({
   selector: 'app-publicaciones',
   templateUrl: './publicaciones.component.html',
-  styleUrls: ['./publicaciones.component.css']
+  styleUrls: ['./publicaciones.component.css'],
 })
 export class PublicacionesComponent implements OnInit {
+  constructor(private publicacionesService: PublicacionesService) {}
 
-  constructor(private publicacionesService : PublicacionesService) { }
-
-  publicaciones : Publicacion[] = [];
+  publicaciones: Publicacion[] = [];
 
   ngOnInit(): void {
-
-    this.cargarPublicaciones();    
-
-    console.log(this.publicaciones);
-    
+    this.cargarPublicaciones();
   }
 
-  cargarPublicaciones():void{
-    this.publicacionesService.verPublicaciones().subscribe(data => {
+  cargarPublicaciones(): void {
+    this.publicacionesService.verPublicaciones().subscribe((data) => {
       this.publicaciones = data;
-      console.log(data);
     });
   }
-
+  
 }

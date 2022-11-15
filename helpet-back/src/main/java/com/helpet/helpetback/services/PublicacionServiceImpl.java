@@ -5,48 +5,45 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.helpet.helpetback.models.Publicacion;
-import com.helpet.helpetback.repository.IPublicacionRepository;
+import com.helpet.helpetback.entities.Publicacion;
+import com.helpet.helpetback.repositories.PublicacionRepository;
 
 @Service
 public class PublicacionServiceImpl implements IPublicacionService{
 
     @Autowired
-    private IPublicacionRepository iPublicacionRepo;
+    private PublicacionRepository publicacionRepo;
 
     @Override
     public void crearPublicacion(Publicacion publicacion) {
+        publicacionRepo.save(publicacion);
+    }
 
-        iPublicacionRepo.save(publicacion);
+    @Override
+    public List<Publicacion> obtenerPublicaciones() {
+        return publicacionRepo.findAll();
+    }
 
+    @Override
+    public Publicacion obtenerPublicacionPorId(Long id) {
+        return publicacionRepo.findById(id).orElse(null);
     }
 
     @Override
     public void eliminarPublicacion(Long id) {
-
-        iPublicacionRepo.deleteById(id);
-
+        publicacionRepo.deleteById(id);
     }
 
     @Override
     public void modificarPublicacion(Long id, Publicacion publicacion) {
-
-        Publicacion publicacionModificada = iPublicacionRepo.findById(id).get();
-
+        Publicacion publicacionModificada = publicacionRepo.findById(id).get();
+        
         publicacionModificada.setDescripcion(publicacion.getDescripcion());
-        publicacionModificada.setFecha(publicacion.getFecha());
         publicacionModificada.setImagen(publicacion.getImagen());
-    }
+        publicacionModificada.setEstado(publicacion.getEstado());
+        publicacionModificada.setUsuario(publicacion.getUsuario());
 
-    @Override
-    public Publicacion verPublicacionId(Long id) {
-        return iPublicacionRepo.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<Publicacion> verPublicaciones() {
-        return iPublicacionRepo.findAll();
+        publicacionRepo.save(publicacionModificada);
     }
     
-
 }

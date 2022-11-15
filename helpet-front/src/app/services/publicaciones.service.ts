@@ -20,4 +20,8 @@ export class PublicacionesService {
       this.url + '/publicaciones/verPublicaciones'
     );
   }
+
+  public crearPublicacion(publicacion:Publicacion): Observable <any> {
+    return this.httpClient.post<any>(this.url + '/publicaciones/crearPublicacion', publicacion);
+  }
 }

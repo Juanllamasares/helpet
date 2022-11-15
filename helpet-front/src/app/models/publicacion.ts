@@ -1,5 +1,5 @@
 export interface Publicacion {
-        publicacion_id: number;
+        publicacion_id?: number;
         descripcion: string;
         fecha: string;
         imagen: string;

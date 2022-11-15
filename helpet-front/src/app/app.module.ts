@@ -15,6 +15,7 @@ import { PublicarComponent } from './pages/publicar/publicar.component';
 import { MainComponent } from './pages/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
     AppRoutingModule,
     HttpClientModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
