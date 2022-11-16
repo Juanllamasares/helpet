@@ -22,10 +22,10 @@ public class Estado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre_estado", nullable = false, length = 45)
+    @Column(name = "nombre_estado",length = 45)
     private String nombreEstado;
 
     @OneToMany(mappedBy = "estado")

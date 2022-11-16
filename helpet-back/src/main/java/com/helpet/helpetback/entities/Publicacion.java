@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,24 +29,26 @@ public class Publicacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "imagen", nullable = false, length = 200)
+    @Column(name = "imagen", length = 200)
     private String imagen;
 
-    @Column(name = "descripcion", nullable = false, length = 1000)
+    @Column(name = "descripcion",length = 1000)
     private String descripcion;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha")
     private Date fecha;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "estado_id", nullable = false)
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "estado_id")
     private Estado estado;
 }

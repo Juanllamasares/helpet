@@ -31,18 +31,18 @@ public class UsuarioController {
         return new ResponseEntity<>("Usuario Creado correctamente.",HttpStatus.CREATED);
     }
 
-    @GetMapping("/verUsuarios")
-    public ResponseEntity<List<Usuario>> verUsuarios(){
+    @GetMapping("/obtenerUsuarios")
+    public ResponseEntity<List<Usuario>> obtenerUsuarios(){
 
-        List<Usuario> usuarios = usuarioServ.verUsuarios();
+        List<Usuario> usuarios = usuarioServ.obtenerUsuarios();
 
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    @GetMapping("/verUsuarioPorId/{id}")
-    public ResponseEntity<Usuario> verUsuarioPorId(@PathVariable(name = "id") Long id){
+    @GetMapping("/obtenerUsuarioPorId/{id}")
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable(name = "id") Long id){
 
-        Usuario usuario = usuarioServ.verUsuarioPorId(id);
+        Usuario usuario = usuarioServ.obtenerUsuarioPorId(id);
 
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
@@ -50,7 +50,7 @@ public class UsuarioController {
     @DeleteMapping("/borrarUsuario/{id}")
     public ResponseEntity<String> borrarUsuario(@PathVariable(name = "id") Long id){
 
-        if(usuarioServ.verUsuarioPorId(id) == null) return new ResponseEntity<>("Usuario con id: " + id + " no encontrado.", HttpStatus.BAD_REQUEST);
+        if(usuarioServ.obtenerUsuarioPorId(id) == null) return new ResponseEntity<>("Usuario con id: " + id + " no encontrado.", HttpStatus.BAD_REQUEST);
 
         usuarioServ.eliminarUsuario(id);
 

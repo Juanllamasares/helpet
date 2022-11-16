@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.helpet.helpetback.entities.Estado;
 import com.helpet.helpetback.entities.Publicacion;
 import com.helpet.helpetback.entities.Usuario;
+import com.helpet.helpetback.services.EstadoServiceImpl;
 import com.helpet.helpetback.services.PublicacionServiceImpl;
 import com.helpet.helpetback.services.UsuarioServiceImpl;
 
@@ -31,13 +33,18 @@ public class PublicacionController {
     @Autowired
     private UsuarioServiceImpl usuarioServ;
 
+    @Autowired
+    private EstadoServiceImpl estadoServ;
+
 
     @PostMapping("/crearPublicacion")
     public ResponseEntity<String> crearPublicacion(@RequestBody Publicacion publicacion) {
 
         Usuario usuario = usuarioServ.obtenerUsuarioPorId(publicacion.getUsuario().getId());
+        Estado estado = estadoServ.obtenerEstadoPorId(publicacion.getEstado().getId());
 
         usuario.getPublicaciones().add(publicacion);
+        estado.getPublicaciones().add(publicacion);
         
         publicacion.setFecha(new Date());
 
