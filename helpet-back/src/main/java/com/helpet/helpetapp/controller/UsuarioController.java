@@ -1,4 +1,4 @@
-package com.helpet.helpetback.controllers;
+package com.helpet.helpetapp.controller;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.helpet.helpetback.entities.Usuario;
-import com.helpet.helpetback.services.UsuarioServiceImpl;
+import com.helpet.helpetapp.entity.Usuario;
+import com.helpet.helpetapp.service.usuario.UsuarioServiceImpl;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -23,38 +23,22 @@ public class UsuarioController {
     @Autowired
     private UsuarioServiceImpl usuarioServ;
 
-    @PostMapping("/crearUsuario")
+    @PostMapping("/crear")
     public ResponseEntity<String> crearUsuario(@RequestBody Usuario usuario){
-
         usuarioServ.crearUsuario(usuario);
-
-        return new ResponseEntity<>("Usuario Creado correctamente.",HttpStatus.CREATED);
+        return new ResponseEntity<>("Usuario creado correctamente.",HttpStatus.CREATED);
     }
 
     @GetMapping("/obtenerUsuarios")
     public ResponseEntity<List<Usuario>> obtenerUsuarios(){
-
         List<Usuario> usuarios = usuarioServ.obtenerUsuarios();
-
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        return new ResponseEntity<>(usuarios,HttpStatus.OK);
     }
 
-    @GetMapping("/obtenerUsuarioPorId/{id}")
-    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable(name = "id") Long id){
-
-        Usuario usuario = usuarioServ.obtenerUsuarioPorId(id);
-
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/borrarUsuario/{id}")
-    public ResponseEntity<String> borrarUsuario(@PathVariable(name = "id") Long id){
-
-        if(usuarioServ.obtenerUsuarioPorId(id) == null) return new ResponseEntity<>("Usuario con id: " + id + " no encontrado.", HttpStatus.BAD_REQUEST);
-
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminarUsuario(@PathVariable(name = "id") Long id){
+        if(usuarioServ.obtenerUsuarioPorId(id) == null) return new ResponseEntity<>("Usuario no encontrado.",HttpStatus.BAD_REQUEST);
         usuarioServ.eliminarUsuario(id);
-
-        return new ResponseEntity<>("Usuario con id: " + id + " Eliminado correctamente.", HttpStatus.OK);
+        return new ResponseEntity<>("Usuario eliminado  correctamente.",HttpStatus.OK);
     }
-    
 }

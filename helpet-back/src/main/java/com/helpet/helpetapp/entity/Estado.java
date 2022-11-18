@@ -1,5 +1,6 @@
-package com.helpet.helpetback.entities;
+package com.helpet.helpetapp.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,19 +17,17 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Table(name = "estados")
 public class Estado {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre_estado",length = 45)
+    @Column(name = "nombre_estado",length = 50)
     private String nombreEstado;
 
     @OneToMany(mappedBy = "estado")
-    private List<Publicacion> publicaciones;
-
+    private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 }

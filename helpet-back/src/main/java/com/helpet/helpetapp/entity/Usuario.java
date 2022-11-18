@@ -1,4 +1,4 @@
-package com.helpet.helpetback.entities;
+package com.helpet.helpetapp.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,35 +13,34 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre",length = 45)
+    @Column(length = 50)
     private String nombre;
 
-    @Column(name = "apellido",length = 45)
+    @Column(length = 50)
     private String apellido;
 
-    @Column(name = "nombre_usuario", length = 45)
+    @Column(name = "nombre_usuario",length = 50)
     private String nombreUsuario;
-    
-    @Column(name = "password", length = 45)
+
+    @Column(length = 50)
     private String password;
 
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY,mappedBy = "usuario")
     private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
-} 
+    
+}

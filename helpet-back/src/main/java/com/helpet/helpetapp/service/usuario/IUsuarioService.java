@@ -1,16 +1,16 @@
-package com.helpet.helpetback.services;
+package com.helpet.helpetapp.service.usuario;
 
 import java.util.List;
 
-import com.helpet.helpetback.entities.Usuario;
+import com.helpet.helpetapp.entity.Usuario;
 
 public interface IUsuarioService {
     
     public void crearUsuario(Usuario usuario);
-
-    public void eliminarUsuario(Long id);
-
+    
     public List<Usuario> obtenerUsuarios();
 
     public Usuario obtenerUsuarioPorId(Long id);
+
+    public void eliminarUsuario(Long id);
 }

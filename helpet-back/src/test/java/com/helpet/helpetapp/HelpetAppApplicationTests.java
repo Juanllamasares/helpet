@@ -1,10 +1,10 @@
-package com.helpet.helpetback;
+package com.helpet.helpetapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HelpetBackApplicationTests {
+class HelpetAppApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,11 +1,9 @@
-package com.helpet.helpetback.entities;
+package com.helpet.helpetapp.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,32 +21,34 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Table(name = "publicaciones")
 public class Publicacion {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "imagen", length = 200)
+    @Column(length = 200)
     private String imagen;
 
-    @Column(name = "descripcion",length = 1000)
+    @Column(length = 500)
     private String descripcion;
 
+    @Column(name = "fecha_de_publicacion",length = 50)
     @Temporal(TemporalType.DATE)
-    @Column(name = "fecha")
-    private Date fecha;
+    private Date fechaDePublicacion;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(length = 100)
+    private String locacion;
+
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
     @JsonIgnore
+    Usuario usuario;
+
     @ManyToOne
     @JoinColumn(name = "estado_id")
-    private Estado estado;
+    @JsonIgnore
+    Estado estado;
 }

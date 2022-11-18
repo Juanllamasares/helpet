@@ -1,13 +1,13 @@
-package com.helpet.helpetback;
+package com.helpet.helpetapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelpetBackApplication {
+public class HelpetAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelpetBackApplication.class, args);
+		SpringApplication.run(HelpetAppApplication.class, args);
 	}
 
 }
