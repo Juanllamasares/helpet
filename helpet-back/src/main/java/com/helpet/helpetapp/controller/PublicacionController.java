@@ -35,26 +35,25 @@ public class PublicacionController {
     private EstadoServiceImpl estadoServ;
 
     @PostMapping("/crear")
-    public Publicacion crearPublicacion(@RequestBody Publicacion publicacion){
-
-        return publicacion;
+    public ResponseEntity<String> crearPublicacion(@RequestBody Publicacion publicacion){
 
 
-        //if (publicacion.getUsuario().getId() == null) return new ResponseEntity<>("El usuario No existe.",HttpStatus.BAD_REQUEST);
-        //if (publicacion.getEstado().getId() == null) return new ResponseEntity<>("El estado No existe.",HttpStatus.BAD_REQUEST);
-//
-//
-        //Usuario usuario = usuarioserv.obtenerUsuarioPorId(publicacion.getUsuario().getId());
-        //
-        //Estado estado = estadoServ.obtenerEstadoPorId(publicacion.getEstado().getId());
-//
-        //usuario.getPublicaciones().add(publicacion);
-        //estado.getPublicaciones().add(publicacion);
-//
-        //publicacion.setFechaDePublicacion(new Date());
-//
-        //publicacionServ.crearPublicacion(publicacion);
-        //return new ResponseEntity<>("Publicacion creada correctamente.",HttpStatus.CREATED);
+
+        if (publicacion.getUsuario().getId() == null) return new ResponseEntity<>("El usuario No existe.",HttpStatus.BAD_REQUEST);
+        if (publicacion.getEstado().getId() == null) return new ResponseEntity<>("El estado No existe.",HttpStatus.BAD_REQUEST);
+
+
+        Usuario usuario = usuarioserv.obtenerUsuarioPorId(publicacion.getUsuario().getId());
+        
+        Estado estado = estadoServ.obtenerEstadoPorId(publicacion.getEstado().getId());
+
+        usuario.getPublicaciones().add(publicacion);
+        estado.getPublicaciones().add(publicacion);
+
+        publicacion.setFechaDePublicacion(new Date());
+
+        publicacionServ.crearPublicacion(publicacion);
+        return new ResponseEntity<>("Publicacion creada correctamente.",HttpStatus.CREATED);
     }
 
     @GetMapping("/obtenerPublicaciones")
@@ -70,3 +69,8 @@ public class PublicacionController {
         return new ResponseEntity<>("Publicacion eliminada correctamente.",HttpStatus.OK);
     }
 }
+
+
+
+
+
