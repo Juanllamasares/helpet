@@ -1,6 +1,5 @@
 package com.helpet.helpetapp.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,8 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore; 
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,21 +31,34 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 50)
+    @NotEmpty(message = "El nombre no debe estar vacio o nulo.")
+    @Size(min = 2,max = 50)
     private String nombre;
 
-    @Column(length = 50)
+    @NotEmpty(message = "El apellido no debe estar vacio o nulo.")
+    @Size(min = 2,max = 50)
     private String apellido;
 
-    @Column(name = "nombre_usuario",length = 50)
+    @Column(name = "nombre_usuario")
+    @NotEmpty(message = "El nombre de usuario no debe estar vacio o nulo.")
+    @Size(min = 2, max = 20)
     private String nombreUsuario;
 
-    @Column(length = 50)
+    @NotEmpty(message = "La contraseña no debe estar vacia o nula.")
+    @Size(min = 5, max = 50)
+    @JsonIgnore
     private String password;
 
+    @Size(max = 200)
+    private String avatar;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "usuario")
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY,mappedBy = "usuario")
     @JsonIgnore
     private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY,mappedBy = "usuario")
+    @JsonIgnore
+    List<Comentario> comentarios = new ArrayList<Comentario>();
     
 }

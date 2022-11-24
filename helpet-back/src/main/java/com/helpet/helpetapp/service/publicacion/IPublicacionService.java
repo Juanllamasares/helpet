@@ -2,16 +2,19 @@ package com.helpet.helpetapp.service.publicacion;
 
 import java.util.List;
 
-import com.helpet.helpetapp.entity.Publicacion;
+import com.helpet.helpetapp.dto.publicacion.PublicacionDtoCreacional;
+import com.helpet.helpetapp.dto.publicacion.PublicacionDtoRespuesta;
 
 public interface IPublicacionService {
 
-    public void crearPublicacion(Publicacion publicacion);
+    public void crearPublicacion(PublicacionDtoCreacional publicacionCreacional);
     
-    public List<Publicacion> obtenerPublicaciones();
+    public List<PublicacionDtoRespuesta> obtenerPublicaciones();
 
-    public Publicacion obtenerPublicacionPorId(Long id);
+    public PublicacionDtoRespuesta obtenerPublicacionPorId(Long id);
 
     public void eliminarPublicacion(Long id);
+
+    public void modificarPublicacion(Long id, PublicacionDtoCreacional publicacionDtoCreacional);
     
 }

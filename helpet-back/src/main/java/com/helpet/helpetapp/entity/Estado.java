@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,7 +29,9 @@ public class Estado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre_estado",length = 50)
+    @Column(name = "nombre_estado")
+    @NotEmpty(message = "El nombre del estado no debe estar vacio o nulo.")
+    @Size(min = 4, max = 50)
     private String nombreEstado;
 
     @OneToMany(mappedBy = "estado")
