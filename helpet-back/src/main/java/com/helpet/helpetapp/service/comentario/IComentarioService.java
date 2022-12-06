@@ -3,6 +3,7 @@ package com.helpet.helpetapp.service.comentario;
 import java.util.List;
 
 import com.helpet.helpetapp.dto.comentario.ComentarioDtoCreacional;
+import com.helpet.helpetapp.dto.comentario.ComentarioDtoRespuesta;
 
 public interface IComentarioService {
     
@@ -12,7 +13,7 @@ public interface IComentarioService {
 
     public void eliminarComentario(Long id);
 
-    public List<ComentarioDtoCreacional> obtenerComentarios();
+    public List<ComentarioDtoRespuesta> obtenerComentarios();
 
-    public ComentarioDtoCreacional obtenerComentarioPorId(Long id);
+    public ComentarioDtoRespuesta obtenerComentarioPorId(Long id);
 }

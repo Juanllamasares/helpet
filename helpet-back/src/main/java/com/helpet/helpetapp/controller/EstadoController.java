@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.helpet.helpetapp.entity.Estado;
+import com.helpet.helpetapp.dto.estado.EstadoDtoCreacional;
+import com.helpet.helpetapp.dto.estado.EstadoDtoRespuesta;
 import com.helpet.helpetapp.service.estado.EstadoServiceImpl;
 
 @RestController
@@ -24,14 +25,14 @@ public class EstadoController {
     private EstadoServiceImpl estadoServ;
 
     @PostMapping("/crear")
-    public ResponseEntity<String> crearEstado(@RequestBody Estado estado){
-        estadoServ.crearEstado(estado);
+    public ResponseEntity<String> crearEstado(@RequestBody EstadoDtoCreacional estadoDtoCreacional){
+        estadoServ.crearEstado(estadoDtoCreacional);
         return new ResponseEntity<>("Estado creado correctamente.",HttpStatus.CREATED);
     }
 
     @GetMapping("/obtenerEstados")
-    public ResponseEntity<List<Estado>> obtenerEstados(){
-        List<Estado> estados = estadoServ.obtenerEstados();
+    public ResponseEntity<List<EstadoDtoRespuesta>> obtenerEstados(){
+        List<EstadoDtoRespuesta> estados = estadoServ.obtenerEstados();
         return new ResponseEntity<>(estados,HttpStatus.OK);
     }
 

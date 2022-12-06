@@ -19,6 +19,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.helpet.helpetapp.security.entity.Usuario;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -58,5 +61,6 @@ public class Publicacion {
     Estado estado;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "publicacion")
+    @JsonBackReference
     List<Comentario> comentarios = new ArrayList<Comentario>();
 }

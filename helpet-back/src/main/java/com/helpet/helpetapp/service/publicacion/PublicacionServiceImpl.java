@@ -1,34 +1,70 @@
 package com.helpet.helpetapp.service.publicacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.helpet.helpetapp.dto.publicacion.PublicacionDtoCreacional;
 import com.helpet.helpetapp.dto.publicacion.PublicacionDtoRespuesta;
+import com.helpet.helpetapp.entity.Estado;
 import com.helpet.helpetapp.entity.Publicacion;
-import com.helpet.helpetapp.entity.Usuario;
+import com.helpet.helpetapp.repository.EstadoRepository;
 import com.helpet.helpetapp.repository.PublicacionRepository;
+import com.helpet.helpetapp.security.entity.Usuario;
+import com.helpet.helpetapp.security.repository.UsuarioRepository;
 
 @Service
+@Transactional
 public class PublicacionServiceImpl implements IPublicacionService{
 
     @Autowired
-    private PublicacionRepository publicacionServ;
+    private PublicacionRepository publicacionRepo;
+    @Autowired  
+    private UsuarioRepository usuarioRepo;
     @Autowired
-    private ModelMapper modelMapper;
+    private EstadoRepository estadoRepo;
 
     @Override
     public void crearPublicacion(PublicacionDtoCreacional publicacionCreacional) {
-        Publicacion publicacion = modelMapper.map(publicacionCreacional, Publicacion.class);
-        publicacionServ.save(publicacion);
+
+        Usuario usuario = usuarioRepo.findById(publicacionCreacional.getUsuarioId()).get();
+        Estado estado = estadoRepo.findById(publicacionCreacional.getEstadoId()).get();
+        Publicacion publicacion = new Publicacion();
+
+        publicacion.setDescripcion(publicacionCreacional.getDescripcion());
+        publicacion.setFechaDePublicacion(publicacionCreacional.getFechaDePublicacion());
+        publicacion.setImagen(publicacionCreacional.getImagen());
+        publicacion.setLocacion(publicacionCreacional.getLocacion());
+        publicacion.setUsuario(usuario);
+        publicacion.setEstado(estado);
+
+        publicacionRepo.save(publicacion);
     }
 
     @Override
     public List<PublicacionDtoRespuesta> obtenerPublicaciones() {
-        return null;
+        List<Publicacion> entities = publicacionRepo.findAll();
+        List<PublicacionDtoRespuesta> publicacionDtoRespuestas = new ArrayList<>();
+
+        for(Publicacion publicacion : entities){
+
+            PublicacionDtoRespuesta publicacionDtoRespuesta = new PublicacionDtoRespuesta();
+            publicacionDtoRespuesta.setId(publicacion.getId());
+            publicacionDtoRespuesta.setDescripcion(publicacion.getDescripcion());
+            publicacionDtoRespuesta.setImagen(publicacion.getImagen());
+            publicacionDtoRespuesta.setFechaDePublicacion(publicacion.getFechaDePublicacion());
+            publicacionDtoRespuesta.setLocacion(publicacion.getLocacion());
+            publicacionDtoRespuesta.setEstadoId(publicacion.getEstado().getId());
+            publicacionDtoRespuesta.setUsuarioId(publicacion.getUsuario().getId());
+            publicacionDtoRespuesta.setComentarios(publicacion.getComentarios());
+
+            publicacionDtoRespuestas.add(publicacionDtoRespuesta);
+        }
+        return publicacionDtoRespuestas;
     }
 
     @Override

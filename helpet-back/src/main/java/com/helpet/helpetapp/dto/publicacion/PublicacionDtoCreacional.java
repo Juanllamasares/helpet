@@ -2,7 +2,6 @@ package com.helpet.helpetapp.dto.publicacion;
 
 import java.util.Date;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class PublicacionDtoCreacional {
     @NotEmpty(message = "La descripcion no debe estar vacia o nula.")
     @Size(max = 1000)
     private String descripcion;
-    @NotNull
+
     private Date fechaDePublicacion;
     @NotEmpty(message = "La locacion no debe estar vacia o nula.")
     @Size(max = 100)
